@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="filipjo@mysql.stud.iie.ntnu.no">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.0">
+    <root id="1"/>
+    <schema id="2" parent="1" name="filipjo">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="information_schema"/>
+    <table id="4" parent="2" name="BANE"/>
+    <table id="5" parent="2" name="KOMMUNE"/>
+    <table id="6" parent="2" name="RUTE"/>
+    <table id="7" parent="2" name="RUTETRASE"/>
+    <table id="8" parent="2" name="STASJON"/>
+    <table id="9" parent="2" name="STOPPESTED"/>
+    <table id="10" parent="2" name="deltakelse"/>
+    <table id="11" parent="2" name="klasse"/>
+    <table id="12" parent="2" name="klubb"/>
+    <table id="13" parent="2" name="medlem"/>
+    <table id="14" parent="2" name="renn"/>
+    <table id="15" parent="2" name="renn_klasse"/>
+    <view id="16" parent="2" name="ant_bane_stopp">
+      <Comment>VIEW</Comment>
+    </view>
+    <column id="17" parent="4" name="banenavn">
+      <Position>1</Position>
+      <DataType>char(30)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="18" parent="4" name="endestasjon1">
+      <Position>2</Position>
+      <DataType>smallint(6)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="19" parent="4" name="endestasjon2">
+      <Position>3</Position>
+      <DataType>smallint(6)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="20" parent="4" name="bane_fk1">
+      <ColNames>endestasjon1</ColNames>
+    </index>
+    <index id="21" parent="4" name="bane_fk2">
+      <ColNames>endestasjon2</ColNames>
+    </index>
+    <key id="22" parent="4" name="PRIMARY">
+      <ColNames>banenavn</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="23" parent="4" name="bane_fk1">
+      <ColNames>endestasjon1</ColNames>
+      <RefSchemaName>filipjo</RefSchemaName>
+      <RefTableName>STASJON</RefTableName>
+      <RefColNames>stasjonsnr</RefColNames>
+    </foreign-key>
+    <foreign-key id="24" parent="4" name="bane_fk2">
+      <ColNames>endestasjon2</ColNames>
+      <RefSchemaName>filipjo</RefSchemaName>
+      <RefTableName>STASJON</RefTableName>
+      <RefColNames>stasjonsnr</RefColNames>
+    </foreign-key>
+    <column id="25" parent="5" name="kommunenr">
+      <Position>1</Position>
+      <DataType>smallint(6)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="26" parent="5" name="navn">
+      <Position>2</Position>
+      <DataType>char(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="27" parent="5" name="fylke">
+      <Position>3</Position>
+      <DataType>char(50)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="28" parent="5" name="PRIMARY">
+      <ColNames>kommunenr</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="29" parent="6" name="rutenr">
+      <Position>1</Position>
+      <DataType>smallint(6)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="30" parent="6" name="endestasjon1">
+      <Position>2</Position>
+      <DataType>smallint(6)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="31" parent="6" name="endestasjon2">
+      <Position>3</Position>
+      <DataType>smallint(6)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="32" parent="6" name="rute_fk1">
+      <ColNames>endestasjon1</ColNames>
+    </index>
+    <index id="33" parent="6" name="rute_fk2">
+      <ColNames>endestasjon2</ColNames>
+    </index>
+    <key id="34" parent="6" name="PRIMARY">
+      <ColNames>rutenr</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="35" parent="6" name="rute_fk1">
+      <ColNames>endestasjon1</ColNames>
+      <RefSchemaName>filipjo</RefSchemaName>
+      <RefTableName>STASJON</RefTableName>
+      <RefColNames>stasjonsnr</RefColNames>
+    </foreign-key>
+    <foreign-key id="36" parent="6" name="rute_fk2">
+      <ColNames>endestasjon2</ColNames>
+      <RefSchemaName>filipjo</RefSchemaName>
+      <RefTableName>STASJON</RefTableName>
+      <RefColNames>stasjonsnr</RefColNames>
+    </foreign-key>
+    <column id="37" parent="7" name="rutenr">
+      <Position>1</Position>
+      <DataType>smallint(6)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="38" parent="7" name="banenavn">
+      <Position>2</Position>
+      <DataType>char(30)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <index id="39" parent="7" name="rutetrase_fk2">
+      <ColNames>banenavn</ColNames>
+    </index>
+    <key id="40" parent="7" name="PRIMARY">
+      <ColNames>rutenr
+banenavn</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="41" parent="7" name="rutetrase_fk1">
+      <ColNames>rutenr</ColNames>
+      <RefSchemaName>filipjo</RefSchemaName>
+      <RefTableName>RUTE</RefTableName>
+      <RefColNames>rutenr</RefColNames>
+    </foreign-key>
+    <foreign-key id="42" parent="7" name="rutetrase_fk2">
+      <ColNames>banenavn</ColNames>
+      <RefSchemaName>filipjo</RefSchemaName>
+      <RefTableName>BANE</RefTableName>
+      <RefColNames>banenavn</RefColNames>
+    </foreign-key>
+    <column id="43" parent="8" name="stasjonsnr">
+      <Position>1</Position>
+      <DataType>smallint(6)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="44" parent="8" name="navn">
+      <Position>2</Position>
+      <DataType>char(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="45" parent="8" name="hoyde">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="46" parent="8" name="kommunenr">
+      <Position>4</Position>
+      <DataType>smallint(6)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="47" parent="8" name="stasjon_fk1">
+      <ColNames>kommunenr</ColNames>
+    </index>
+    <key id="48" parent="8" name="PRIMARY">
+      <ColNames>stasjonsnr</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="49" parent="8" name="stasjon_fk1">
+      <ColNames>kommunenr</ColNames>
+      <RefSchemaName>filipjo</RefSchemaName>
+      <RefTableName>KOMMUNE</RefTableName>
+      <RefColNames>kommunenr</RefColNames>
+    </foreign-key>
+    <column id="50" parent="9" name="rutenr">
+      <Position>1</Position>
+      <DataType>smallint(6)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="51" parent="9" name="stoppnr">
+      <Position>2</Position>
+      <DataType>smallint(6)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="52" parent="9" name="stasjonsnr">
+      <Position>3</Position>
+      <DataType>smallint(6)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="53" parent="9" name="stoppested_fk2">
+      <ColNames>stasjonsnr</ColNames>
+    </index>
+    <key id="54" parent="9" name="PRIMARY">
+      <ColNames>rutenr
+stoppnr</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="55" parent="9" name="stoppested_fk1">
+      <ColNames>rutenr</ColNames>
+      <RefSchemaName>filipjo</RefSchemaName>
+      <RefTableName>RUTE</RefTableName>
+      <RefColNames>rutenr</RefColNames>
+    </foreign-key>
+    <foreign-key id="56" parent="9" name="stoppested_fk2">
+      <ColNames>stasjonsnr</ColNames>
+      <RefSchemaName>filipjo</RefSchemaName>
+      <RefTableName>STASJON</RefTableName>
+      <RefColNames>stasjonsnr</RefColNames>
+    </foreign-key>
+    <column id="57" parent="10" name="medlemsnr">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="58" parent="10" name="rennr">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="59" parent="10" name="plassering">
+      <Position>3</Position>
+      <DataType>smallint(6)|0</DataType>
+    </column>
+    <column id="60" parent="10" name="klasse">
+      <Position>4</Position>
+      <DataType>char(30)|0</DataType>
+    </column>
+    <index id="61" parent="10" name="deltakelse_fk3">
+      <ColNames>rennr
+klasse</ColNames>
+    </index>
+    <key id="62" parent="10" name="PRIMARY">
+      <ColNames>medlemsnr
+rennr</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="63" parent="10" name="deltakelse_fk1">
+      <ColNames>medlemsnr</ColNames>
+      <RefSchemaName>filipjo</RefSchemaName>
+      <RefTableName>medlem</RefTableName>
+      <RefColNames>medlemsnr</RefColNames>
+    </foreign-key>
+    <foreign-key id="64" parent="10" name="deltakelse_fk3">
+      <ColNames>rennr
+klasse</ColNames>
+      <RefSchemaName>filipjo</RefSchemaName>
+      <RefTableName>renn_klasse</RefTableName>
+      <RefColNames>rennr
+klasse</RefColNames>
+    </foreign-key>
+    <foreign-key id="65" parent="10" name="deltakelse_fk2">
+      <ColNames>rennr</ColNames>
+      <RefSchemaName>filipjo</RefSchemaName>
+      <RefTableName>renn</RefTableName>
+      <RefColNames>rennr</RefColNames>
+    </foreign-key>
+    <column id="66" parent="11" name="klasse">
+      <Position>1</Position>
+      <DataType>char(30)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <key id="67" parent="11" name="PRIMARY">
+      <ColNames>klasse</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="68" parent="12" name="klubbnr">
+      <Position>1</Position>
+      <DataType>smallint(6)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="69" parent="12" name="navn">
+      <Position>2</Position>
+      <DataType>char(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="70" parent="12" name="adresse">
+      <Position>3</Position>
+      <DataType>char(50)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="71" parent="12" name="oppstartsår">
+      <Position>4</Position>
+      <DataType>smallint(6)|0</DataType>
+    </column>
+    <key id="72" parent="12" name="PRIMARY">
+      <ColNames>klubbnr</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="73" parent="13" name="medlemsnr">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="74" parent="13" name="navn">
+      <Position>2</Position>
+      <DataType>char(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="75" parent="13" name="adresse">
+      <Position>3</Position>
+      <DataType>char(50)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="76" parent="13" name="kjønn">
+      <Position>4</Position>
+      <DataType>char(1)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="77" parent="13" name="fødselsår">
+      <Position>5</Position>
+      <DataType>smallint(6)|0</DataType>
+    </column>
+    <column id="78" parent="13" name="klubbnr">
+      <Position>6</Position>
+      <DataType>smallint(6)|0</DataType>
+    </column>
+    <index id="79" parent="13" name="medlem_fk1">
+      <ColNames>klubbnr</ColNames>
+    </index>
+    <key id="80" parent="13" name="PRIMARY">
+      <ColNames>medlemsnr</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="81" parent="13" name="medlem_fk1">
+      <ColNames>klubbnr</ColNames>
+      <RefSchemaName>filipjo</RefSchemaName>
+      <RefTableName>klubb</RefTableName>
+      <RefColNames>klubbnr</RefColNames>
+    </foreign-key>
+    <column id="82" parent="14" name="rennr">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="83" parent="14" name="navn">
+      <Position>2</Position>
+      <DataType>char(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="84" parent="14" name="sted">
+      <Position>3</Position>
+      <DataType>char(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="85" parent="14" name="dato">
+      <Position>4</Position>
+      <DataType>date|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="86" parent="14" name="distanse">
+      <Position>5</Position>
+      <DataType>float|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="87" parent="14" name="nivå">
+      <Position>6</Position>
+      <DataType>char(30)|0</DataType>
+    </column>
+    <column id="88" parent="14" name="arrangør">
+      <Position>7</Position>
+      <DataType>smallint(6)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="89" parent="14" name="renn_fk1">
+      <ColNames>arrangør</ColNames>
+    </index>
+    <key id="90" parent="14" name="PRIMARY">
+      <ColNames>rennr</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="91" parent="14" name="renn_fk1">
+      <ColNames>arrangør</ColNames>
+      <RefSchemaName>filipjo</RefSchemaName>
+      <RefTableName>klubb</RefTableName>
+      <RefColNames>klubbnr</RefColNames>
+    </foreign-key>
+    <column id="92" parent="15" name="rennr">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="93" parent="15" name="klasse">
+      <Position>2</Position>
+      <DataType>char(30)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <index id="94" parent="15" name="renn_klasse_fk2">
+      <ColNames>klasse</ColNames>
+    </index>
+    <key id="95" parent="15" name="PRIMARY">
+      <ColNames>rennr
+klasse</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="96" parent="15" name="renn_klasse_fk1">
+      <ColNames>rennr</ColNames>
+      <RefSchemaName>filipjo</RefSchemaName>
+      <RefTableName>renn</RefTableName>
+      <RefColNames>rennr</RefColNames>
+    </foreign-key>
+    <foreign-key id="97" parent="15" name="renn_klasse_fk2">
+      <ColNames>klasse</ColNames>
+      <RefSchemaName>filipjo</RefSchemaName>
+      <RefTableName>klasse</RefTableName>
+      <RefColNames>klasse</RefColNames>
+    </foreign-key>
+    <column id="98" parent="16" name="banenavn">
+      <Position>1</Position>
+      <DataType>char(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="99" parent="16" name="ant_stopp">
+      <Position>2</Position>
+      <DataType>bigint(21)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+  </database-model>
+</dataSource>

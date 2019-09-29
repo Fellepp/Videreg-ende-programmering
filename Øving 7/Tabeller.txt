@@ -1,0 +1,4 @@
+Borettslag(_navn_, adresse, antall hus/blokker, etableringsår, blokknr*);
+Hus/blokk(_blokknr_, antall etasjer, antall leiligheter, leilighetnummer*);
+Andelseiere(_personnummer_, fornavn, etternavn, fødelsår);
+Leiligheter(_leilighetnummer_, antall rom, størrelse, etasje, personnummer*);

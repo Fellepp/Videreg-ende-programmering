@@ -1,0 +1,24 @@
+-- 1a)
+SELECT medlem.navn FROM medlem WHERE medlem.medlemsnr IN
+                                     (SELECT deltakelse.medlemsnr FROM deltakelse WHERE deltakelse.plassering = 1);
+
+SELECT DISTINCT medlem.navn FROM medlem NATURAL JOIN deltakelse WHERE plassering = 1;
+-- b)
+SELECT medlem.navn, count(medlem.navn) as 'Antall seiere' FROM medlem NATURAL JOIN deltakelse WHERE plassering = 1 GROUP BY medlem.navn;
+
+-- c)
+SELECT renn.navn, klubb.navn, renn_klasse.klasse
+FROM renn JOIN klubb ON renn.arrangør = klubb.klubbnr
+  NATURAL JOIN renn_klasse
+WHERE renn.dato LIKE '2011%';
+
+-- d)
+SELECT nivå, AVG(distanse) 'gjennomsnitt'
+FROM renn
+WHERE dato LIKE '2016%'
+GROUP BY nivå
+HAVING nivå IN ('NM', 'KM');
+
+-- e)
+SELECT klubb.navn FROM klubb WHERE klubbnr NOT IN
+                                   (SELECT klubb.klubbnr FROM renn JOIN klubb ON renn.arrangør = klubb.klubbnr AND renn.nivå = 'NM');

@@ -1,0 +1,94 @@
+-- 1
+SELECT *
+FROM borettslag
+WHERE etabl_aar BETWEEN '1975' AND '1985';
+
+-- 2
+SELECT CONCAT(fornavn, ' ', etternavn,  ', ansiennitet: ',  ansiennitet,  ' år') as AndelseierInfo
+FROM andelseier;
+
+-- 3
+DROP VIEW IF EXISTS sortert;
+CREATE VIEW sortert AS
+SELECT bolag_navn, etabl_aar
+  FROM borettslag
+  ORDER BY etabl_aar;
+
+Select bolag_navn
+FROM sortert
+WHERE etabl_aar = (SELECT MIN(etabl_aar) FROM sortert);
+
+Select bolag_navn, min(etabl_aar)
+FROM borettslag;
+
+-- 4
+SELECT DISTINCT bygn_adr, ant_rom
+FROM bygning b, leilighet l
+WHERE b.bygn_id = l.bygn_id
+AND ant_rom > 2;
+
+SELECT bygn_adr, ant_rom
+FROM bygning NATURAL JOIN leilighet
+WHERE ant_rom > 2;
+
+-- 5
+SELECT COUNT(*)
+FROM bygning
+WHERE bolag_navn = 'Tertitten';
+
+-- 6
+SELECT borettslag.bolag_navn, COUNT(bygning.bolag_navn) as antBygninger
+FROM bygning RIGHT JOIN borettslag ON (bygning.bolag_navn = borettslag.bolag_navn)
+GROUP BY borettslag.bolag_navn
+ORDER BY borettslag.bolag_navn;
+
+-- 7
+SELECT bolag_navn, count(leilighet.leil_nr)
+FROM bygning NATURAL JOIN leilighet
+WHERE bolag_navn = 'Tertitten';
+
+-- 8
+SELECT MAX(etasje), bolag_navn
+FROM leilighet, bygning
+WHERE bygning.bygn_id = leilighet.bygn_id
+AND bolag_navn = 'Tertitten';
+
+-- 9
+SELECT fornavn, etternavn, and_eier_nr
+FROM andelseier
+WHERE and_eier_nr NOT IN (SELECT and_eier_nr FROM leilighet);
+
+-- 10
+SELECT borettslag.bolag_navn, count(and_eier_nr) as andelseiere
+FROM borettslag LEFT JOIN andelseier ON borettslag.bolag_navn = andelseier.bolag_navn
+GROUP BY bolag_navn
+ORDER BY count(and_eier_nr) DESC;
+
+-- 11
+SELECT andelseier.*, leil_nr
+FROM andelseier LEFT JOIN leilighet
+ON andelseier.and_eier_nr = leilighet.and_eier_nr;
+
+-- 12
+SELECT b.bolag_navn, l.ant_rom
+FROM bygning b, leilighet l
+WHERE b.bygn_id = l.bygn_id
+AND l.ant_rom = 4;
+
+-- 13
+SELECT postnr, poststed, count(*) "Antall andelseiere"
+FROM leilighet NATURAL JOIN bygning NATURAL JOIN poststed
+GROUP BY poststed.postnr;
+
+SELECT poststed.postnr, poststed.poststed, count(and_eier_nr) "Antall andelseiere"
+FROM leilighet NATURAL JOIN bygning RIGHT JOIN poststed ON bygning.postnr = poststed.postnr
+GROUP BY poststed.postnr;
+
+
+
+
+
+
+
+
+

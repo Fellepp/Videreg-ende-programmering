@@ -1,0 +1,75 @@
+DROP TABLE IF EXISTS oppdrag;
+DROP TABLE IF EXISTS bedrift;
+DROP TABLE IF EXISTS kandidat_kvalifikasjon;
+DROP TABLE IF EXISTS kvalifikasjon;
+DROP TABLE IF EXISTS kandidat;
+
+CREATE TABLE kandidat (
+    kandidat_nr INTEGER NOT NULL AUTO_INCREMENT,
+    fornavn VARCHAR(30) NOT NULL,
+    etternavn VARCHAR(30) NOT NULL,
+    telefon VARCHAR (15) NOT NULL,
+    epost VARCHAR(50) NOT NULL,
+    PRIMARY KEY (kandidat_nr)
+);
+
+CREATE TABLE bedrift (
+    org_nr INTEGER NOT NULL AUTO_INCREMENT,
+    bedrift_navn VARCHAR(30) NOT NULL,
+    bedrift_telefon VARCHAR(15) NOT NULL,
+    bedrift_epost VARCHAR(50) NOT NULL,
+    PRIMARY KEY(org_nr)
+);
+
+CREATE TABLE kvalifikasjon (
+    kvalifikasjon_id INTEGER NOT NULL AUTO_INCREMENT,
+    kvalifikasjon_navn VARCHAR(20) NOT NULL,
+    PRIMARY KEY(kvalifikasjon_id)
+);
+
+CREATE TABLE kandidat_kvalifikasjon(
+    kandidat_nr INTEGER NOT NULL,
+    kvalifikasjon_id INTEGER NOT NULL,
+    PRIMARY KEY (kandidat_nr, kvalifikasjon_id),
+    FOREIGN KEY (kandidat_nr) REFERENCES kandidat(kandidat_nr),
+    FOREIGN KEY (kvalifikasjon_id) REFERENCES kvalifikasjon(kvalifikasjon_id)
+);
+
+CREATE TABLE oppdrag(
+    oppdrag_nr INTEGER NOT NULL AUTO_INCREMENT,
+    org_nr INTEGER NOT NULL,
+    kvalifikasjon_id_krav INTEGER,
+    start_dato DATE NOT NULL,
+    slutt_dato DATE NOT NULL,
+    antall_timer INTEGER NOT NULL,
+    kandidat_nr INTEGER,
+    virkelig_start_dato DATE,
+    virkelig_slutt_dato DATE,
+    PRIMARY KEY (oppdrag_nr),
+    FOREIGN KEY (org_nr) REFERENCES bedrift(org_nr),
+    FOREIGN KEY (kvalifikasjon_id_krav) REFERENCES kvalifikasjon(kvalifikasjon_id),
+    FOREIGN KEY (kandidat_nr) REFERENCES kandidat(kandidat_nr)
+);
+
+INSERT INTO kandidat VALUES(default, 'Filip', 'Johansen', '93889729', 'johansenfilip@gmail.com');
+INSERT INTO kandidat VALUES(default, 'Aleksander', 'Olsen', '69696969', 'aleko@gmail.com');
+INSERT INTO kandidat VALUES(default, 'Kha', 'Do Nguyen', '66666666', 'khadogjor@gmail.com');
+INSERT INTO kandidat VALUES(default, 'Øystein', 'Vikane', '42042069', 'vikaneswag@gmail.com');
+INSERT INTO kandidat VALUES(default, 'Dmitry', 'Koujelev', '13371337', 'cykablyat@putin.com');
+
+INSERT INTO kvalifikasjon VALUES(default, 'burger flipping');
+INSERT INTO kvalifikasjon VALUES(default, 'weeaboo');
+INSERT INTO kvalifikasjon VALUES(default, 'teit');
+INSERT INTO kvalifikasjon VALUES(default, 'asian');
+
+INSERT INTO kandidat_kvalifikasjon VALUE(1, 1);
+INSERT INTO kandidat_kvalifikasjon VALUE(2, 3);
+INSERT INTO kandidat_kvalifikasjon VALUE(3, 4);
+INSERT INTO kandidat_kvalifikasjon VALUE(4, 2);
+
+INSERT INTO bedrift VALUES(default, 'Bodypillows AS', '12312350', 'bodypillows@kos.no');
+INSERT INTO bedrift VALUES(default, 'Deli de Luca', '32132169', 'deli@luca.no');
+
+INSERT INTO oppdrag VALUES(default, 1, 2, DATE('2017-02-05'), DATE('2017-02-08'), 6, null, null, null);
+INSERT INTO oppdrag VALUES(default, 1, 2, DATE('2017-01-05'), DATE('2017-01-08'), 5, 4, DATE('2017-01-05'), DATE('2017-01-08')); 
+INSERT INTO oppdrag VALUES(default, 2, 1, DATE('2017-02-08'), DATE('2017-01-09'), 3, 1, DATE('2017-01-09'), DATE('2017-01-10'));

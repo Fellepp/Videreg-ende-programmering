@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>8</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>504</x>
+      <y>16</y>
+      <w>208</w>
+      <h>208</h>
+    </coordinates>
+    <panel_attributes>/::Tribune/
+--
+-tribunenavn: java.lang.String
+-kapasitet: int
+-pris: int
+-antSolgteBilletter: int
+--
++Tribune(java.lang.String, int, int): ctor
++finnAntallSolgteBilletter(): int
++finnInntekt(): int
++getTribunenavn(): java.lang.String
++getKapasitet(): int
++getPris(): int
+~kjøpBilletter(int): Billett[]
+~kjøpBilletter(java.lang.String[]): Billett[]
++toString(): java.lang.String
++compareTo(java.lang.Object): int
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>496</x>
+      <y>312</y>
+      <w>200</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>::VIP
+--
+-antSolgteBilletter: int
+-tilskuer: java.lang.String[][]
+-plassPrRad: int
+-antOpptatt: int[]
+--
++VIP(java.lang.String, int, int, int): ctor
++finnAntallSolgteBilletter(): int
++finnInntekt(): int
+~kjøpBilletter(int): Billett[]
+-ledigRad(int): int
+~kjøpBilletter(java.lang.String[]): Billett[]
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>784</x>
+      <y>272</y>
+      <w>208</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>::Sitte
+--
+-antSolgteBilletter: int
+-antOpptatt: int[]
+-plassPrRad: int
+--
++Sitte(java.lang.String, int, int, int): ctor
++finnAntallSolgteBilletter(): int
++finnInntekt(): int
+-ledigRad(int): int
+~kjøpBilletter(int): Billett[]
+~kjøpBilletter(java.lang.String[]): Billett[]
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>176</x>
+      <y>264</y>
+      <w>208</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>::Staa
+--
+-antSolgteBilletter: int
+-pris: int
+--
++Staa(java.lang.String, int, int): ctor
++finnAntallSolgteBilletter(): int
++finnInntekt(): int
+~kjøpBilletter(int): Billett[]
+~kjøpBilletter(java.lang.String[]): Billett[]
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1296</x>
+      <y>200</y>
+      <w>88</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;instanceOf&gt;&gt;</panel_attributes>
+    <additional_attributes>20.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>584</x>
+      <y>224</y>
+      <w>88</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;instanceOf&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>712</x>
+      <y>224</y>
+      <w>80</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;instanceOf&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;80.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>384</x>
+      <y>224</y>
+      <w>120</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;instanceOf&gt;&gt;</panel_attributes>
+    <additional_attributes>130.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+</diagram>

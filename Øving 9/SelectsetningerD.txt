@@ -1,0 +1,9 @@
+SELECT DISTINCT bedrift_navn, bedrift_telefon, bedrift_epost FROM bedrift;
+
+SELECT oppdrag_nr, bedrift_navn, bedrift_telefon FROM bedrift NATURAL JOIN oppdrag;
+
+SELECT DISTINCT kandidat.kandidat_nr, fornavn, etternavn, kvalifikasjon_id, kvalifikasjon_navn FROM kandidat NATURAL LEFT JOIN kandidat_kvalifikasjon NATURAL LEFT JOIN kvalifikasjon WHERE kvalifikasjon_id IS NOT NULL;
+
+SELECT DISTINCT kandidat.kandidat_nr, fornavn, etternavn, kvalifikasjon_id, kvalifikasjon_navn FROM kandidat NATURAL LEFT JOIN kandidat_kvalifikasjon NATURAL LEFT JOIN kvalifikasjon;
+
+SELECT DISTINCT kandidat_nr, fornavn, etternavn, slutt_dato, oppdrag_nr, bedrift_navn, kvalifikasjon_navn FROM kandidat NATURAL LEFT JOIN kandidat_kvalifikasjon NATURAL LEFT JOIN kvalifikasjon NATURAL LEFT JOIN oppdrag NATURAL LEFT JOIN bedrift WHERE fornavn = 'Filip';

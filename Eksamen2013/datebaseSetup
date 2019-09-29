@@ -1,0 +1,70 @@
+Drop table if exists deltakelse;
+Drop table if exists renn_klasse;
+Drop table if exists klasse;
+Drop table if exists renn;
+Drop table if exists medlem;
+Drop table if exists klubb;
+
+CREATE TABLE klubb(
+  klubbnr SMALLINT,
+  navn char(30) NOT NULL,
+  adresse char(50) NOT NULL,
+  oppstartsår SMALLINT,
+  CONSTRAINT pk_klubb PRIMARY KEY(klubbnr)
+);
+CREATE TABLE medlem(
+  medlemsnr INT,
+  navn char(30) NOT NULL,
+  adresse char(50) NOT NULL,
+  kjønn char(1) NOT NULL, -- 'M'/'K' for mann/kvinne
+  fødselsår SMALLINT,
+  klubbnr SMALLINT,
+  CONSTRAINT pk_medlem PRIMARY KEY(medlemsnr)
+);
+CREATE TABLE renn(
+  rennr INT,
+  navn char(30) NOT NULL,
+  sted char(30) NOT NULL,
+  dato DATE NOT NULL, -- Bruker datoformatet 'yyyy-mm-dd'
+  distanse float NOT NULL, -- i km
+  nivå char(30),
+  arrangør SMALLINT NOT NULL,
+  CONSTRAINT pk_renn PRIMARY KEY(rennr)
+);
+CREATE TABLE klasse(
+  klasse char(30),
+  CONSTRAINT pk_klasse PRIMARY KEY(klasse)
+);
+CREATE TABLE renn_klasse(
+  rennr INT,
+  klasse char(30),
+  CONSTRAINT pk_renn_klasse PRIMARY KEY(rennr, klasse)
+);
+CREATE TABLE deltakelse(
+  medlemsnr INT,
+  rennr INT,
+  plassering SMALLINT,
+  klasse char(30),
+  CONSTRAINT pk_deltakelse PRIMARY KEY(medlemsnr, rennr)
+);
+ALTER TABLE medlem
+  ADD CONSTRAINT medlem_fk1 FOREIGN KEY(klubbnr)
+REFERENCES klubb (klubbnr);
+ALTER TABLE renn
+  ADD CONSTRAINT renn_fk1 FOREIGN KEY(arrangør)
+REFERENCES klubb (klubbnr);
+ALTER TABLE renn_klasse
+  ADD CONSTRAINT renn_klasse_fk1 FOREIGN KEY(rennr)
+REFERENCES renn (rennr);
+ALTER TABLE renn_klasse
+  ADD CONSTRAINT renn_klasse_fk2 FOREIGN KEY(klasse)
+REFERENCES klasse (klasse);
+ALTER TABLE deltakelse
+  ADD CONSTRAINT deltakelse_fk1 FOREIGN KEY(medlemsnr)
+REFERENCES medlem (medlemsnr);
+ALTER TABLE deltakelse
+  ADD CONSTRAINT deltakelse_fk2 FOREIGN KEY(rennr)
+REFERENCES renn (rennr);
+ALTER TABLE deltakelse
+  ADD CONSTRAINT deltakelse_fk3 FOREIGN KEY(rennr, klasse)
+REFERENCES renn_klasse (rennr, klasse);

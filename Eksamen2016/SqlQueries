@@ -1,0 +1,39 @@
+-- c)
+SELECT varenr, count(*) as antallVurderinger
+FROM VURDERING
+GROUP BY varenr
+HAVING count(*) > 2
+ORDER BY count(*) DESC;
+
+-- d)
+SELECT DISTINCT varenr
+FROM VURDERING v, VURD_SCORE vs, VURD_KRITERIUM vk
+WHERE v.vurd_id = vs.vurd_id
+AND vs.krit_id = vk.krit_id
+AND score = maks_score
+AND vurd_id NOT IN (SELECT DISTINCT vurd_id
+                    FROM VURDERING v, VURD_SCORE vs, VURD_KRITERIUM vk
+                    WHERE v.vurd_id = vs.vurd_id
+                    AND vs.krit_id = vk.krit_id
+                    AND score < maks_score);
+
+-- e)
+-- View med varenr og gjennomsnittscore for de varene med maksscore 5
+CREATE VIEW SNITT_SCORE AS
+SELECT varenr, AVG(score) as gj_score
+FROM VURDERING v, VURD_SCORE vs, VURD_KRITERIUM vk
+WHERE v.vurd_id = vs.vurd_id
+AND vs.krit_id = vk.krit_id
+AND maks_score = 5
+GROUP BY varenr;
+
+SELECT varenr
+FROM SNITT_SCORE
+WHERE gj_score = (SELECT MAX(gj_score) FROM SNITT_SCORE);
+
+-- f)
+-- select kundeid og kundenavn til alle kunder som har vurdert minst en av varene de også har ordre på (kunde vurdert noe kjøpt)
+SELECT k.kundeid, k.navn
+FROM VURDERING v, ORDRELINJE ol, KUNDE k
+WHERE v.varenr = ol.varenr
+AND k.kundeid = ol.kundeid;

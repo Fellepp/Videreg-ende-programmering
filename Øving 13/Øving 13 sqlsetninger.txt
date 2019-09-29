@@ -1,0 +1,26 @@
+--1
+--SELECT bolag_navn, bolag_adr, etabl_aar FROM borettslag WHERE etabl_aar BETWEEN 1975 AND 1985;
+--2
+--SELECT CONCAT(fornavn, ' ', etternavn, ', ansiennitet: ', ansiennitet) 'Navn og ansiennitet' FROM andelseier GROUP BY ansiennitet DESC;
+--3
+--SELECT MIN(etabl_aar), bolag_navn FROM borettslag;
+--4
+--SELECT bygn_adr, leil_nr, ant_rom FROM bygning NATURAL JOIN leilighet WHERE leilighet.ant_rom > 2;
+--5
+--SELECT bolag_navn 'Borettslag', COUNT(bolag_navn) 'Antall bygninger' FROM bygning WHERE bolag_navn = 'Tertitten';
+--6
+--SELECT COUNT(bygning.bolag_navn) 'Antall bygninger', borettslag.bolag_navn 'Borettslag' FROM bygning RIGHT JOIN borettslag ON bygning.bolag_navn = borettslag.bolag_navn GROUP BY borettslag.bolag_navn ORDER BY borettslag.bolag_navn;
+--7
+--SELECT COUNT(leil_nr), bolag_navn FROM leilighet NATURAL LEFT JOIN bygning WHERE bygning.bolag_navn = 'Tertitten';
+--8
+--SELECT MAX(ant_etasjer), bolag_navn, bygn_adr FROM bygning;
+--9
+--SELECT fornavn, etternavn, telefon FROM andelseier WHERE and_eier_nr NOT IN (SELECT and_eier_nr FROM leilighet);
+--10
+--SELECT borettslag.bolag_navn, COUNT(andelseier.and_eier_nr) f AS 'Antall andelseiere' FROM borettslag LEFT JOIN andelseier ON borettslag.bolag_navn=andelseier.bolag_navn GROUP BY borettslag.bolag_navn ORDER BY COUNT(andelseier.and_eier_nr) DESC;
+--11
+--SELECT fornavn, etternavn, leil_nr FROM andelseier NATURAL LEFT JOIN leilighet;
+--12
+--SELECT DISTINCT bolag_navn FROM leilighet NATURAL LEFT JOIN bygning WHERE ant_rom = 4;
+--13
+--SELECT poststed.postnr, poststed.poststed, COUNT(leilighet.and_eier_nr) FROM poststed NATURAL LEFT JOIN bygning NATURAL LEFT JOIN leilighet NATURAL LEFT JOIN andelseier GROUP BY poststed.poststed, poststed.postnr;

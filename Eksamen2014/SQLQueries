@@ -1,0 +1,39 @@
+-- a)
+SELECT navn
+FROM KOMMUNE
+WHERE kommunenr IN
+  (SELECT kommunenr FROM STASJON GROUP BY kommunenr HAVING COUNT(*) > 2);
+
+SELECT navn
+FROM KOMMUNE k
+WHERE
+  (SELECT COUNT(*) FROM STASJON s WHERE s.kommunenr = k.kommunenr) > 2;
+
+-- b)
+SELECT DISTINCT k.navn
+FROM KOMMUNE k, STASJON s, STOPPESTED st
+WHERE k.kommunenr = s.kommunenr
+AND s.stasjonsnr = st.stasjonsnr
+AND rutenr = 26;
+
+-- c)
+SELECT s.navn
+FROM STASJON s, STOPPESTED st
+WHERE s.stasjonsnr = st.stasjonsnr
+AND rutenr NOT IN
+      (SELECT DISTINCT rutenr FROM STOPPESTED WHERE stasjonsnr = (SELECT stasjonsnr FROM STASJON WHERE navn = 'Oslo S'))
+
+-- d)
+SELECT banenavn
+FROM RUTETRASE WHERE rutenr IN (SELECT MAX(SELECT st.rutenr, COUNT(st.stoppnr) FROM STOPPESTED st NATURAL JOIN RUTETRASE GROUP BY rutenr));
+
+CREATE VIEW ant_bane_stopp AS
+  SELECT b.banenavn, COUNT(*) AS ant_stopp
+  FROM BANE b, RUTETRASE t, STOPPESTED st
+  WHERE b.banenavn = t.banenavn
+  AND t.rutenr = st.rutenr
+  GROUP BY b.banenavn;
+
+SELECT banenavn
+FROM ant_bane_stopp
+WHERE ant_stopp = (SELECT MAX(ant_stopp) FROM ant_bane_stopp);
